@@ -1,0 +1,29 @@
+GET http://localhost:5000/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsIm5hbWUiOiJBIE5vdmFsIiwiaWF0IjoxNzE0OTM4MjEwLCJleHAiOjE3MTQ5MzgyMzB9.NBgc6wy50rWAyem53xKdZQ0gtMclo_cmynyhsY0zGwU
+###
+POST http://localhost:5000/users
+Content-Type: application/json
+
+{
+    "name": "A Noval",
+    "email": "email@gmail.com",
+    "password": "123456",
+    "confPassword": "123456"
+}
+
+###
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+    "email": "email@gmail.com",
+    "password": "123456"
+}
+
+
+###
+GET http://localhost:5000/token
+
+
+###
+DELETE http://localhost:5000/logout

@@ -3,25 +3,37 @@ const db = require("../config/database.js");
 
 const { DataTypes } = Sequelize;
 
-const Karya = db.define(
-  "karya",
+const Artikel = db.define(
+  "artikel",
   {
-    kategori: {
+    title: {
       type: DataTypes.STRING,
     },
-    judul: {
+    kategori: {
       type: DataTypes.STRING,
     },
     author: {
       type: DataTypes.STRING,
     },
-    tanggal_penerbit: {
+    date: {
       type: DataTypes.DATE,
     },
     image_url: {
       type: DataTypes.STRING,
     },
-    deskripsi: {
+    pengertian: {
+      type: DataTypes.STRING,
+    },
+    subbab1: {
+      type: DataTypes.STRING,
+    },
+    subbab2: {
+      type: DataTypes.STRING,
+    },
+    artikel1: {
+      type: DataTypes.STRING,
+    },
+    artikel2: {
       type: DataTypes.STRING,
     },
   },
@@ -30,4 +42,4 @@ const Karya = db.define(
   }
 );
 
-module.exports = Karya;
+module.exports = Artikel;

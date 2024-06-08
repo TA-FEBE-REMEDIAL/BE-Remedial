@@ -3,25 +3,16 @@ const db = require("../config/database.js");
 
 const { DataTypes } = Sequelize;
 
-const Karya = db.define(
-  "karya",
+const Kelas = db.define(
+  "kelas",
   {
     kategori: {
       type: DataTypes.STRING,
     },
-    judul: {
+    isi_materi: {
       type: DataTypes.STRING,
-    },
-    author: {
-      type: DataTypes.STRING,
-    },
-    tanggal_penerbit: {
-      type: DataTypes.DATE,
     },
     image_url: {
-      type: DataTypes.STRING,
-    },
-    deskripsi: {
       type: DataTypes.STRING,
     },
   },
@@ -30,4 +21,4 @@ const Karya = db.define(
   }
 );
 
-module.exports = Karya;
+module.exports = Kelas;

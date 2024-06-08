@@ -18,10 +18,16 @@ const app = express();
 
 const users = require("./userRoute.js");
 const karya = require("./karyaRoute.js");
+const kelas = require("./kelasRoute.js");
+const artikel = require("./artikelRoute.js");
+const materi = require("./materiRoute.js");
 
 const url = "/api";
 
 app.use(url, users);
 app.use(url, karya);
+app.use(url, kelas);
+app.use(url, artikel);
+app.use(url, materi);
 
 module.exports = app;

@@ -7,11 +7,11 @@ const routes = require("./routes/index.js");
 require("dotenv").config();
 const app = express();
 const server = createServer(app);
-const corsOptions = {
-  origin: "http://localhost:3000",
-  credentials: true, //access-control-allow-credentials:true
-  optionSuccessStatus: 200,
-};
+// const corsOptions = {
+//   origin: "http://localhost:5173/",
+//   credentials: true, //access-control-allow-credentials:true
+//   optionSuccessStatus: 200,
+// };
 
 // try {
 //   await db.authenticate();
@@ -20,7 +20,7 @@ const corsOptions = {
 //   console.error(error);
 // }
 
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 app.use(routes);

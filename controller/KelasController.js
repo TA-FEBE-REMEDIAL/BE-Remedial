@@ -3,8 +3,43 @@ const Kelas = require("../models/KelasModel.js");
 const getKelas = async (req, res) => {
   try {
     const kelas = await Kelas.findAll({
-      attributes: ["id", "kategori", "isi_materi", "image_url"],
+      attributes: [
+        "id",
+        "judul_kelas",
+        "desc_kelas",
+        "kategori",
+        "isi_materi",
+        "image_url",
+        "video_url",
+      ],
     });
+
+    const kelasLimit = await Kelas.findAll({
+      order: [["createdAt", "DESC"]],
+      limit: 3,
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Menampilkan data seluruh kelas",
+      data: kelas,
+      limit: kelasLimit,
+    });
+
+    // return res.json({ kelas, kelasLimit });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const findKelasById = async (req, res) => {
+  try {
+    const kelas = await Kelas.findOne({
+      where: {
+        id: req.params.id,
+      },
+    });
+
     res.json(kelas);
   } catch (error) {
     console.log(error);
@@ -13,12 +48,24 @@ const getKelas = async (req, res) => {
 
 const addKelas = async (req, res) => {
   try {
-    const { kategori, isi_materi, image_url } = req.body;
+    console.log(req.body);
+    console.log("woi");
+    const {
+      judul_kelas,
+      desc_kelas,
+      kategori,
+      isi_materi,
+      image_url,
+      video_url,
+    } = req.body;
 
-    await Kelas.create({
+    const data = await Kelas.create({
+      judul_kelas: judul_kelas,
+      desc_kelas: desc_kelas,
       kategori: kategori,
       isi_materi: isi_materi,
       image_url: image_url,
+      video_url: video_url,
     });
 
     return res.status(200).json({
@@ -34,4 +81,4 @@ const addKelas = async (req, res) => {
   }
 };
 
-module.exports = { getKelas, addKelas };
+module.exports = { getKelas, findKelasById, addKelas };

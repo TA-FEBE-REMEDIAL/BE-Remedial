@@ -21,19 +21,7 @@ const Artikel = db.define(
     image_url: {
       type: DataTypes.STRING,
     },
-    pengertian: {
-      type: DataTypes.STRING,
-    },
-    subbab1: {
-      type: DataTypes.STRING,
-    },
-    subbab2: {
-      type: DataTypes.STRING,
-    },
-    artikel1: {
-      type: DataTypes.STRING,
-    },
-    artikel2: {
+    isi_artikel: {
       type: DataTypes.STRING,
     },
   },

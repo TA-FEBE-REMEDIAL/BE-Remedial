@@ -22,6 +22,8 @@ const kelas = require("./kelasRoute.js");
 const artikel = require("./artikelRoute.js");
 const materi = require("./materiRoute.js");
 const program = require("./programRoute.js");
+const komentar = require("./komentarRoute.js");
+const challenge = require("./challengeRoute.js");
 const programuser = require("./programUserRoute.js");
 
 const url = "/api";
@@ -32,6 +34,8 @@ app.use(url, kelas);
 app.use(url, artikel);
 app.use(url, materi);
 app.use(url, program);
+app.use(url, challenge);
 app.use(url, programuser);
+app.use(url, komentar);
 
 module.exports = app;

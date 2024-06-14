@@ -3,26 +3,29 @@ const db = require("../config/database.js");
 
 const { DataTypes } = Sequelize;
 
-const Challenge = db.define(
-  "challenge",
+const Komentar = db.define(
+  "komentar",
   {
-    title: {
+    nama: {
       type: DataTypes.STRING,
     },
-    deskripsi: {
+    email: {
       type: DataTypes.STRING,
     },
-    kuota: {
+    komentar: {
+      type: DataTypes.STRING,
+    },
+    date: {
+      type: DataTypes.DATE,
+    },
+    image_url: {
+      type: DataTypes.STRING,
+    },
+    isi_artikel: {
+      type: DataTypes.STRING,
+    },
+    artikel_id: {
       type: DataTypes.BIGINT,
-    },
-    mentor: {
-      type: DataTypes.STRING,
-    },
-    detail_challenge_1: {
-      type: DataTypes.STRING,
-    },
-    detail_challenge_2: {
-      type: DataTypes.STRING,
     },
   },
   {
@@ -33,4 +36,4 @@ const Challenge = db.define(
   }
 );
 
-module.exports = Challenge;
+module.exports = Komentar;

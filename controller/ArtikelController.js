@@ -10,12 +10,7 @@ const getArtikel = async (req, res) => {
         "author",
         "date",
         "image_url",
-        "artikel_web",
-        "pengertian",
-        "subbab1",
-        "subbab2",
-        "artikel1",
-        "artikel2",
+        "isi_artikel",
       ],
     });
     res.json(artikel);
@@ -26,31 +21,14 @@ const getArtikel = async (req, res) => {
 
 const addArtikel = async (req, res) => {
   try {
-    const {
-      title,
-      kategori,
-      author,
-      date,
-      image_url,
-      artikel_web,
-      pengertian,
-      subbab1,
-      subbab2,
-      artikel1,
-      artikel2,
-    } = req.body;
+    const { title, kategori, author, date, image_url, isi_artikel } = req.body;
     await Artikel.create({
       title: title,
       kategori: kategori,
       author: author,
       date: date,
       image_url: image_url,
-      artikel_web: artikel_web,
-      pengertian: pengertian,
-      subbab1: subbab1,
-      subbab2: subbab2,
-      artikel1: artikel1,
-      artikel2: artikel2,
+      isi_artikel: isi_artikel,
     });
 
     return res.status(200).json({

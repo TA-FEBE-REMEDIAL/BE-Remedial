@@ -3,28 +3,34 @@ const db = require("../config/database.js");
 
 const { DataTypes } = Sequelize;
 
-const Users = db.define(
-  "users",
+const Challenge = db.define(
+  "challenge",
   {
-    name: {
+    title: {
       type: DataTypes.STRING,
     },
-    email: {
+    deskripsi: {
       type: DataTypes.STRING,
     },
-    password: {
+    kuota: {
+      type: DataTypes.INT,
+    },
+    mentor: {
       type: DataTypes.STRING,
     },
-    role: {
+    detail_challenge_1: {
       type: DataTypes.STRING,
     },
-    refresh_token: {
-      type: DataTypes.TEXT,
+    detail_challenge_2: {
+      type: DataTypes.STRING,
     },
   },
   {
+    timestamps: false,
     freezeTableName: true,
+    createdAt: false,
+    updatedAt: false,
   }
 );
 
-module.exports = Users;
+module.exports = Challenge;

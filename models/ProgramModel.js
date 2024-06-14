@@ -3,23 +3,20 @@ const db = require("../config/database.js");
 
 const { DataTypes } = Sequelize;
 
-const Users = db.define(
-  "users",
+const Program = db.define(
+  "program",
   {
-    name: {
+    judul: {
       type: DataTypes.STRING,
     },
-    email: {
+    kategori: {
       type: DataTypes.STRING,
     },
-    password: {
+    desc_program: {
       type: DataTypes.STRING,
     },
-    role: {
+    detail_program: {
       type: DataTypes.STRING,
-    },
-    refresh_token: {
-      type: DataTypes.TEXT,
     },
   },
   {
@@ -27,4 +24,4 @@ const Users = db.define(
   }
 );
 
-module.exports = Users;
+module.exports = Program;

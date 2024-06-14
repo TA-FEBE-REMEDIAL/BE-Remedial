@@ -21,6 +21,8 @@ const karya = require("./karyaRoute.js");
 const kelas = require("./kelasRoute.js");
 const artikel = require("./artikelRoute.js");
 const materi = require("./materiRoute.js");
+const program = require("./programRoute.js");
+const programuser = require("./programUserRoute.js");
 
 const url = "/api";
 
@@ -29,5 +31,7 @@ app.use(url, karya);
 app.use(url, kelas);
 app.use(url, artikel);
 app.use(url, materi);
+app.use(url, program);
+app.use(url, programuser);
 
 module.exports = app;

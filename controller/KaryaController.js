@@ -24,6 +24,23 @@ const addKarya = async (req, res) => {
     const { kategori, judul, author, tanggal_penerbit, image_url, deskripsi } =
       req.body;
 
+    if (
+      kategori === undefined ||
+      kategori === "" ||
+      judul === undefined ||
+      judul === "" ||
+      author === undefined ||
+      author === "" ||
+      tanggal_penerbit === undefined ||
+      tanggal_penerbit === "" ||
+      deskripsi === undefined ||
+      deskripsi === ""
+    ) {
+      return res.status(400).json({
+        success: false,
+        message: "Data Wajib di isi!",
+      });
+    }
     await Karya.create({
       kategori: kategori,
       judul: judul,

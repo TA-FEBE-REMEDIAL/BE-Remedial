@@ -3,8 +3,29 @@ const Program = require("../models/ProgramModel.js");
 const getProgram = async (req, res) => {
   try {
     const program = await Program.findAll({
-      attributes: ["id", "judul", "kategori", "desc_program", "detail_program"],
+      attributes: [
+        "id",
+        "judul",
+        "kategori",
+        "image",
+        "desc_program",
+        "detail_program",
+      ],
     });
+    res.json(program);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const findProgramById = async (req, res) => {
+  try {
+    const program = await Program.findOne({
+      where: {
+        id: req.params.id,
+      },
+    });
+
     res.json(program);
   } catch (error) {
     console.log(error);
@@ -35,4 +56,4 @@ const addProgram = async (req, res) => {
   }
 };
 
-module.exports = { getProgram, addProgram };
+module.exports = { getProgram, findProgramById, addProgram };

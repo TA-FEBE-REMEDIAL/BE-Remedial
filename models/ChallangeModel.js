@@ -1,5 +1,6 @@
 const { Sequelize } = require("sequelize");
 const db = require("../config/database.js");
+const Program = require("./ProgramModel.js");
 
 const { DataTypes } = Sequelize;
 
@@ -10,6 +11,9 @@ const Challenge = db.define(
       type: DataTypes.STRING,
     },
     deskripsi: {
+      type: DataTypes.STRING,
+    },
+    img_url: {
       type: DataTypes.STRING,
     },
     kuota: {
@@ -24,6 +28,9 @@ const Challenge = db.define(
     detail_challenge_2: {
       type: DataTypes.STRING,
     },
+    program_id: {
+      type: DataTypes.BIGINT,
+    },
   },
   {
     timestamps: false,
@@ -32,5 +39,10 @@ const Challenge = db.define(
     updatedAt: false,
   }
 );
+
+Challenge.belongsTo(Program, {
+  foreignKey: "program_id",
+  as: "program",
+});
 
 module.exports = Challenge;

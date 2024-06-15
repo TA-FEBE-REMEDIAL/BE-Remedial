@@ -34,6 +34,7 @@ const getKelas = async (req, res) => {
 
 const findKelasById = async (req, res) => {
   try {
+    console.log(req.params);
     const kelas = await Kelas.findOne({
       where: {
         id: req.params.id,

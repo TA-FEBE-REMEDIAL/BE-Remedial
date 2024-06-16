@@ -1,4 +1,5 @@
 const Karya = require("../models/KaryaModel.js");
+const path = require("path");
 
 const getKarya = async (req, res) => {
   try {
@@ -20,30 +21,55 @@ const getKarya = async (req, res) => {
 };
 
 const addKarya = async (req, res) => {
+  if (req.files === null)
+    return res.status(400).json({ msg: "No File Uploaded" });
+  const name = req.body.title;
+  const file = req.files.file;
+  const fileSize = file.data.length;
+  const ext = path.extname(file.name);
+  const fileName = file.md5 + ext;
+  const url = `${req.protocol}://${req.get("host")}/images/${fileName}`;
+  const allowedType = [".png", ".jpg", ".jpeg"];
+
+  if (!allowedType.includes(ext.toLowerCase()))
+    return res.status(422).json({
+      msg: "Invalid Images",
+    });
+  if (fileSize > 5000000)
+    return res.status(422).json({
+      msg: "Images must be less than 5 mb",
+    });
+
+  file.mv(`./public/images/${fileName}`, async (err) => {
+    if (err) return res.status(500).json({ msg: err.message });
+    try {
+      await Karya.create({
+        judul: name,
+        image_url: fileName,
+        url: url,
+      });
+      res.status(201).json({ msg: "Karya Created Successfully" });
+    } catch (error) {
+      console.log(error.message);
+    }
+  });
+};
+
+const getKaryaById = async (req, res) => {
   try {
-    const { kategori, judul, author, tanggal_penerbit, image_url, deskripsi } =
-      req.body;
-
-    await Karya.create({
-      kategori: kategori,
-      judul: judul,
-      author: author,
-      tanggal_penerbit: tanggal_penerbit,
-      image_url: image_url,
-      deskripsi: deskripsi,
+    const response = await Karya.findOne({
+      where: {
+        id: req.params.id,
+      },
     });
-
-    return res.status(200).json({
-      success: true,
-      msg: "Tambah data berhasi;",
-      data: { ...req.body },
-    });
+    res.json(response);
   } catch (error) {
-    return res.status(400).json({
-      success: false,
-      message: `Data Gagal ditambahkan : ${error.message}`,
-    });
+    console.log(error.message);
   }
 };
 
-module.exports = { getKarya, addKarya };
+const updateKarya = async (req, res) => {};
+
+const deleteKarya = async (req, res) => {};
+
+module.exports = { getKarya, addKarya, getKaryaById };

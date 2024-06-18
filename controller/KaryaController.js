@@ -293,4 +293,4 @@ const editKarya = async (req, res) => {
   }
 };
 
-module.exports = { getKarya, addKarya, editKarya };
+module.exports = { getKarya, addKarya, editKarya, findKaryaById };

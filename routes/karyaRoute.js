@@ -5,6 +5,7 @@ const {
   getKarya,
   addKarya,
   editKarya,
+  findKaryaById,
 } = require("../controller/KaryaController.js");
 
 routes.get("/karya", getKarya);

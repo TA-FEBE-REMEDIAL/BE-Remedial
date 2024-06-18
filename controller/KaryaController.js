@@ -14,10 +14,38 @@ const getKarya = async (req, res) => {
         "deskripsi",
       ],
     });
-    res.json(karya);
+
+    const karyaLimit = await Karya.findAll({
+      // order: Sequelize.literal("RAND()"),
+      limit: 3,
+    });
+    console.log(karyaLimit);
+    return res.status(200).json({
+      success: true,
+      message: "Menampilkan data seluruh karya",
+      data: karya,
+      limit: karyaLimit,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+const findKaryaById = async (req, res) => {
+  try {
+    const karya = await Karya.findOne({
+      where: {
+        id: req.params.id,
+      },
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Menampilkan data seluruh karya",
+      data: karya,
+    });
   } catch (error) {
     console.log(error);
   }
 };
 
-module.exports = { getKarya };
+module.exports = { getKarya, findKaryaById };

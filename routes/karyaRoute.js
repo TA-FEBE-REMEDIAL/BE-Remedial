@@ -3,12 +3,11 @@ const routes = express();
 const {
   getKarya,
   addKarya,
-  getKaryaById,
+  editKarya,
 } = require("../controller/KaryaController.js");
 
 routes.get("/karya", getKarya);
-routes.get("/karya/:id", getKaryaById);
 routes.post("/karya", addKarya);
-// routes.delete("/karya/:id", deleteKarya);
+routes.put("/karya/:id", editKarya);
 
 module.exports = routes;

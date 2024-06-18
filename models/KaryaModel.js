@@ -21,8 +21,14 @@ const Karya = db.define(
     image_url: {
       type: DataTypes.STRING,
     },
+    url: {
+      type: DataTypes.STRING,
+    },
     deskripsi: {
       type: DataTypes.STRING,
+    },
+    challenge_id: {
+      type: DataTypes.BIGINT,
     },
   },
   {

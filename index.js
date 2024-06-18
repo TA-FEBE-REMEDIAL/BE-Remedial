@@ -1,9 +1,11 @@
 const express = require("express");
+const FileUpload = require("express-fileupload");
 const { createServer } = require("http");
 const db = require("./config/database.js");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const routes = require("./routes/index.js");
+const multer = require("multer");
 require("dotenv").config();
 const app = express();
 const server = createServer(app);
@@ -21,8 +23,11 @@ const server = createServer(app);
 // }
 
 app.use(cors());
+app.use(multer({ dest: "public/images" }).single("image"));
+
 app.use(cookieParser());
 app.use(express.json());
 app.use(routes);
+app.use(FileUpload());
 
 server.listen(5000, () => console.log("Server running at port 5000"));

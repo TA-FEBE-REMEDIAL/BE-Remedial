@@ -26,7 +26,10 @@ const Artikel = db.define(
     },
   },
   {
+    timestamps: false,
     freezeTableName: true,
+    createdAt: false,
+    updatedAt: false,
   }
 );
 

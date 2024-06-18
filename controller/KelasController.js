@@ -1,4 +1,5 @@
 const Kelas = require("../models/KelasModel.js");
+const Sequelize = require("sequelize");
 
 const getKelas = async (req, res) => {
   try {
@@ -15,7 +16,7 @@ const getKelas = async (req, res) => {
     });
 
     const kelasLimit = await Kelas.findAll({
-      order: [["createdAt", "DESC"]],
+      order: Sequelize.literal("RAND()"),
       limit: 3,
     });
 
@@ -34,14 +35,26 @@ const getKelas = async (req, res) => {
 
 const findKelasById = async (req, res) => {
   try {
-    console.log(req.params);
     const kelas = await Kelas.findOne({
       where: {
         id: req.params.id,
       },
     });
 
-    res.json(kelas);
+    const kategori = kelas.dataValues.kategori;
+    const rekomendasi = await Kelas.findAll({
+      where: {
+        kategori: kategori,
+      },
+      // order: [["date", "DESC"]],
+      limit: 3,
+    });
+    return res.status(200).json({
+      success: true,
+      message: "Menampilkan data seluruh kelas",
+      data: kelas,
+      rekomendasi: rekomendasi,
+    });
   } catch (error) {
     console.log(error);
   }
@@ -49,8 +62,6 @@ const findKelasById = async (req, res) => {
 
 const addKelas = async (req, res) => {
   try {
-    console.log(req.body);
-    console.log("woi");
     const {
       judul_kelas,
       desc_kelas,

@@ -18,12 +18,6 @@ const Komentar = db.define(
     date: {
       type: DataTypes.DATE,
     },
-    image_url: {
-      type: DataTypes.STRING,
-    },
-    isi_artikel: {
-      type: DataTypes.STRING,
-    },
     artikel_id: {
       type: DataTypes.BIGINT,
     },

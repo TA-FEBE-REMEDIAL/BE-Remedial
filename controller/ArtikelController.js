@@ -13,7 +13,20 @@ const getArtikel = async (req, res) => {
         "isi_artikel",
       ],
     });
-    res.json(artikel);
+
+    const artikelLimit = await Artikel.findAll({
+      order: [["id", "DESC"]],
+      limit: 2,
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Menampilkan data seluruh artikel",
+      data: artikel,
+      limit: artikelLimit,
+    });
+
+    // res.json(artikel);
   } catch (error) {
     console.log(error);
   }
@@ -26,8 +39,21 @@ const findArtikelById = async (req, res) => {
         id: req.params.id,
       },
     });
+    const kategori = artikel.dataValues.kategori;
+    const rekomendasi = await Artikel.findAll({
+      where: {
+        kategori: kategori,
+      },
+      // order: [["date", "DESC"]],
+      limit: 4,
+    });
 
-    res.json(artikel);
+    return res.status(200).json({
+      success: true,
+      message: "Menampilkan data seluruh artikel",
+      data: artikel,
+      rekomendasi: rekomendasi,
+    });
   } catch (error) {
     console.log(error);
   }

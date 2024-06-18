@@ -12,6 +12,9 @@ const Program = db.define(
     kategori: {
       type: DataTypes.STRING,
     },
+    image: {
+      type: DataTypes.STRING,
+    },
     desc_program: {
       type: DataTypes.STRING,
     },
@@ -20,7 +23,10 @@ const Program = db.define(
     },
   },
   {
+    timestamps: false,
     freezeTableName: true,
+    createdAt: false,
+    updatedAt: false,
   }
 );
 

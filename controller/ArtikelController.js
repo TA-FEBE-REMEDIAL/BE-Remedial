@@ -19,6 +19,20 @@ const getArtikel = async (req, res) => {
   }
 };
 
+const findArtikelById = async (req, res) => {
+  try {
+    const artikel = await Artikel.findOne({
+      where: {
+        id: req.params.id,
+      },
+    });
+
+    res.json(artikel);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const addArtikel = async (req, res) => {
   try {
     const { title, kategori, author, date, image_url, isi_artikel } = req.body;
@@ -44,4 +58,4 @@ const addArtikel = async (req, res) => {
   }
 };
 
-module.exports = { getArtikel, addArtikel };
+module.exports = { getArtikel, findArtikelById, addArtikel };

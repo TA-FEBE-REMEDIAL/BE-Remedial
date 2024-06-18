@@ -1,4 +1,5 @@
 const Challenge = require("../models/ChallangeModel.js");
+const Program = require("../models/ProgramModel.js");
 
 const getChallenge = async (req, res) => {
   try {
@@ -7,12 +8,49 @@ const getChallenge = async (req, res) => {
         "id",
         "title",
         "deskripsi",
+        "img_url",
         "kuota",
         "mentor",
         "detail_challenge_1",
         "detail_challenge_2",
+        "program_id",
       ],
     });
+    res.json(challenge);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const findChallengeById = async (req, res) => {
+  try {
+    const challenge = await Challenge.findOne({
+      where: {
+        id: req.params.id,
+      },
+    });
+
+    res.json(challenge);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const findChallengeByProgramId = async (req, res) => {
+  try {
+    const challenge = await Challenge.findAll({
+      where: {
+        program_id: req.params.program_id,
+      },
+      include: [
+        {
+          model: Program,
+          as: "program",
+          attributes: ["id", "judul", "image"],
+        },
+      ],
+    });
+
     res.json(challenge);
   } catch (error) {
     console.log(error);
@@ -51,4 +89,9 @@ const addChallenge = async (req, res) => {
   }
 };
 
-module.exports = { getChallenge, addChallenge };
+module.exports = {
+  getChallenge,
+  findChallengeByProgramId,
+  findChallengeById,
+  addChallenge,
+};

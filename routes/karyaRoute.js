@@ -1,6 +1,5 @@
 const express = require("express");
 const routes = express();
-const { getKarya, findKaryaById } = require("../controller/KaryaController.js");
 const {
   getKarya,
   addKarya,

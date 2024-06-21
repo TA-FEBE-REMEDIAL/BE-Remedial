@@ -50,9 +50,27 @@ const findArtikelById = async (req, res) => {
 
     return res.status(200).json({
       success: true,
-      message: "Menampilkan data seluruh artikel",
+      message: "Menampilkan data artikel",
       data: artikel,
       rekomendasi: rekomendasi,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const findArtikelByKategori = async (req, res) => {
+  try {
+    const artikel = await Artikel.findAll({
+      where: {
+        kategori: req.params.kategori,
+      },
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Menampilkan data artikel by kategori",
+      data: artikel,
     });
   } catch (error) {
     console.log(error);
@@ -84,4 +102,9 @@ const addArtikel = async (req, res) => {
   }
 };
 
-module.exports = { getArtikel, findArtikelById, addArtikel };
+module.exports = {
+  getArtikel,
+  findArtikelById,
+  findArtikelByKategori,
+  addArtikel,
+};

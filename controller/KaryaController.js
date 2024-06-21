@@ -23,7 +23,6 @@ const getKarya = async (req, res) => {
       // order: Sequelize.literal("RAND()"),
       limit: 3,
     });
-    console.log(karyaLimit);
     return res.status(200).json({
       success: true,
       message: "Menampilkan data seluruh karya",
@@ -205,7 +204,6 @@ const editKarya = async (req, res) => {
   if (!karya) return res.status(404).json({ message: "No data found" });
 
   let fileName = "";
-  console.log(karya.dataValues.image_url);
   if (req.files === null) {
     fileName = karya.dataValues.image_url;
   } else {

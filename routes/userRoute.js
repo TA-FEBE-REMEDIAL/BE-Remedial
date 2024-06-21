@@ -5,7 +5,7 @@ const verifyToken = require("../middleware/VerifyToken.js");
 const refreshToken = require("../controller/RefreshToken.js");
 
 routes.get("/users", verifyToken, getUsers);
-routes.post("/users", Register);
+routes.post("/register", Register);
 routes.post("/login", Login);
 routes.get("/token", refreshToken);
 routes.delete("/logout", Logout);

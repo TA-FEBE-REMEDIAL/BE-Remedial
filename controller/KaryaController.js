@@ -16,6 +16,7 @@ const getKarya = async (req, res) => {
         "nilai",
         "feedback",
         "challenge_id",
+        "email",
       ],
     });
 
@@ -62,6 +63,7 @@ const addKarya = async (req, res) => {
     nilai,
     feedback,
     challenge_id,
+    email,
   } = req.body;
 
   if (judul === undefined || judul === "") {
@@ -108,6 +110,7 @@ const addKarya = async (req, res) => {
         nilai: nilai,
         feedback: feedback,
         challenge_id: challenge_id,
+        email: email,
       });
 
       return res.status(200).json({
@@ -153,6 +156,7 @@ const addKarya = async (req, res) => {
       nilai,
       feedback,
       challenge_id,
+      email,
     } = req.body;
 
     file.mv(`./public/images/${fileName}`, async (err) => {
@@ -175,6 +179,7 @@ const addKarya = async (req, res) => {
           nilai: nilai,
           feedback: feedback,
           challenge_id: challenge_id,
+          email: email,
         });
 
         return res.status(200).json({
@@ -255,6 +260,7 @@ const editKarya = async (req, res) => {
       nilai,
       feedback,
       challenge_id,
+      email,
     } = req.body;
 
     const data = await Karya.update(
@@ -269,6 +275,7 @@ const editKarya = async (req, res) => {
         nilai: nilai,
         feedback: feedback,
         challenge_id: challenge_id,
+        email: email,
       },
       {
         where: {

@@ -37,6 +37,9 @@ const Karya = db.define(
     challenge_id: {
       type: DataTypes.BIGINT,
     },
+    email: {
+      type: DataTypes.STRING,
+    },
   },
   {
     freezeTableName: true,

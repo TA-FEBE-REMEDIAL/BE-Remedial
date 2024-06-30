@@ -56,8 +56,6 @@ const findKaryaById = async (req, res) => {
 
 const addKarya = async (req, res) => {
   upload(req, res, async function (err) {
-    console.log(req.file);
-    console.log(req.files);
     if (err) {
       return res
         .status(400)
@@ -115,55 +113,71 @@ const addKarya = async (req, res) => {
         message: "Gambar wajib di isi!",
       });
     }
-    // if (lampiran === undefined || lampiran === "") {
-    //   return res.status(400).json({
-    //     success: false,
-    //     message: "Lampiran wajib di isi!",
-    //   });
-    // }
+    if (
+      (lampiran === undefined || lampiran === "") &&
+      (link === undefined || link === "")
+    ) {
+      return res.status(400).json({
+        success: false,
+        message: "Link atau lampiran wajib di isi!",
+      });
+    }
 
     function hashMD5(text) {
       return crypto.createHash("md5").update(text).digest("hex");
     }
 
-    const fileLampiran = req.files.lampiran;
-    const lampiranSize = fileLampiran.size;
-    const extLampiran = fileLampiran.map((data) =>
-      path.extname(data.originalname)
-    );
-    const lampiranName = fileLampiran.map(
-      (data) => `${req.body.author}-${hashMD5(data.originalname)}`
-    );
-    const lampiranUrls = fileLampiran.map(
-      (data, index) =>
-        `${req.protocol}://${req.get("host")}/lampiran/${lampiranName[index]}${
-          extLampiran[index]
-        }`
-    );
-    const allowedLampiran = [
-      ".pdf",
-      ".jpg",
-      ".png",
-      ".doc",
-      ".docx",
-      ".ppt",
-      ".pptx",
-      ".xls",
-      ".xlsx",
-      ".jpeg",
-    ];
+    // console.log(!lampiran);
+    let lampiranUrls;
+    if (!lampiran) {
+      lampiranUrls = [];
+    } else {
+      const fileLampiran = req.files.lampiran;
+      const lampiranSize = fileLampiran.size;
+      const extLampiran = fileLampiran.map((data) =>
+        path.extname(data.originalname)
+      );
+      const lampiranName = fileLampiran.map(
+        (data) => `${req.body.author}-${hashMD5(data.originalname)}`
+      );
+      lampiranUrls = fileLampiran.map(
+        (data, index) =>
+          `${req.protocol}://${req.get("host")}/lampiran/${
+            lampiranName[index]
+          }${extLampiran[index]}`
+      );
+      const allowedLampiran = [
+        ".pdf",
+        ".jpg",
+        ".png",
+        ".doc",
+        ".docx",
+        ".ppt",
+        ".pptx",
+        ".xls",
+        ".xlsx",
+        ".jpeg",
+      ];
 
-    const isValidLampiran = extLampiran.every((ext) =>
-      allowedLampiran.includes(ext.toLowerCase())
-    );
+      const isValidLampiran = extLampiran.every((ext) =>
+        allowedLampiran.includes(ext.toLowerCase())
+      );
 
-    if (!isValidLampiran) {
-      return res.status(422).json({
-        success: false,
-        message: `Format invalid, file harus berupa ekstensi ${allowedLampiran.join(
-          ", "
-        )} !`,
-      });
+      if (!isValidLampiran) {
+        return res.status(422).json({
+          success: false,
+          message: `Format invalid, file harus berupa ekstensi ${allowedLampiran.join(
+            ", "
+          )} !`,
+        });
+      }
+
+      if (lampiranSize > 5000000) {
+        return res.status(422).json({
+          success: false,
+          message: "Size file terlalu besar, maksimal 5MB !",
+        });
+      }
     }
 
     const file = req.files.image_url;
@@ -180,7 +194,7 @@ const addKarya = async (req, res) => {
       });
     }
 
-    if (lampiranSize > 5000000 || fileSize > 5000000) {
+    if (fileSize > 5000000) {
       return res.status(422).json({
         success: false,
         message: "Size file terlalu besar, maksimal 5MB !",

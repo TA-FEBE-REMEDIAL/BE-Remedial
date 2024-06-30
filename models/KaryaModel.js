@@ -31,14 +31,17 @@ const Karya = db.define(
     feedback: {
       type: DataTypes.STRING,
     },
-    // url: {
-    //   type: DataTypes.STRING,
-    // },
     challenge_id: {
       type: DataTypes.BIGINT,
     },
     email: {
       type: DataTypes.STRING,
+    },
+    lampiran: {
+      type: DataTypes.JSON,
+    },
+    link: {
+      type: DataTypes.JSON,
     },
   },
   {

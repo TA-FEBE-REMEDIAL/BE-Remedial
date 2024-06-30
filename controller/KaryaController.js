@@ -421,4 +421,55 @@ const editKarya = async (req, res) => {
   });
 };
 
-module.exports = { getKarya, addKarya, editKarya, findKaryaById };
+const deleteKarya = async (req, res) => {
+  try {
+    const karya = await Karya.findOne({
+      where: {
+        id: req.params.id,
+      },
+    });
+
+    if (!karya) {
+      return res.status(404).json({
+        success: false,
+        message: "Data Karya tidak ditemukan",
+      });
+    }
+
+    const images = karya.image_url;
+    if (images !== null && images.includes("images")) {
+      const fileName = images.split("images/")[1];
+      const filePath = `./public/images/${fileName}`;
+      fs.unlinkSync(filePath);
+    }
+
+    const lampiran = karya.lampiran;
+    const lampiranJSON = JSON.parse(lampiran);
+    if (lampiran !== null && lampiran.includes("lampiran")) {
+      lampiranJSON.map((data, index) => {
+        const fileName = data.split("lampiran/")[1];
+        const filePath = `./public/lampiran/${fileName}`;
+        fs.unlinkSync(filePath);
+      });
+    }
+
+    await Karya.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Data karya berhasil di hapus!",
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(404).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+module.exports = { getKarya, addKarya, editKarya, findKaryaById, deleteKarya };

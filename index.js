@@ -39,19 +39,19 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(routes);
 
+app.use("/api", (req, res) => {
+  return res.status(200).json({
+    success: true,
+    message: "Backend is online...",
+  });
+});
+
 // For Hosting me, disable if want to run LOCAL
 app.use(express.static(path.join(__dirname, "../FE-REMEDIAL/dist")));
 app.use("/", (req, res) => {
   return res.sendFile(
     path.join(__dirname, "../FE-REMEDIAL/dist", "index.html")
   );
-});
-
-app.use("/api", (req, res) => {
-  return res.status(200).json({
-    success: true,
-    message: "Backend is online...",
-  });
 });
 
 server.listen(PORT, () => console.log(`Web running at port ${PORT}`));

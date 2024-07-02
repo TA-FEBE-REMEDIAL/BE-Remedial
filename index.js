@@ -25,7 +25,7 @@ const options = {
 
 const app = express();
 // Enable if want run local
-// const PORT = 80;
+// const PORT = 5000;
 // const server = createServer(app);
 
 // For Hosting me, disable if want to run LOCAL
@@ -41,6 +41,11 @@ app.use(routes);
 
 // For Hosting me, disable if want to run LOCAL
 app.use(express.static(path.join(__dirname, "../FE-REMEDIAL/dist")));
+app.use("/", (req, res) => {
+  return res.sendFile(
+    path.join(__dirname, "../FE-REMEDIAL/dist", "index.html")
+  );
+});
 
 app.use("/api", (req, res) => {
   return res.status(200).json({

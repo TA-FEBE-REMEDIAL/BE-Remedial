@@ -15,8 +15,12 @@ const fs = require("fs");
 // Load SSL certificate
 // For Hosting me, disable if want to run LOCAL
 const options = {
-  key: fs.readFileSync("/etc/letsencrypt/live/suika.pw/privkey.pem"),
-  cert: fs.readFileSync("/etc/letsencrypt/live/suika.pw/fullchain.pem"),
+  key: fs.readFileSync(
+    "/etc/letsencrypt/live/remedial.id.suika.pw/privkey.pem"
+  ),
+  cert: fs.readFileSync(
+    "/etc/letsencrypt/live/remedial.id.suika.pw/fullchain.pem"
+  ),
 };
 
 const app = express();

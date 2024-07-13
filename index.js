@@ -16,10 +16,10 @@ const fs = require("fs");
 // For Hosting me, disable if want to run LOCAL
 const options = {
   key: fs.readFileSync(
-    "/etc/letsencrypt/live/remedial.id.suika.pw/privkey.pem"
+    "/etc/letsencrypt/live/remedial.my.id/privkey.pem"
   ),
   cert: fs.readFileSync(
-    "/etc/letsencrypt/live/remedial.id.suika.pw/fullchain.pem"
+    "/etc/letsencrypt/live/remedial.my.id/fullchain.pem"
   ),
 };
 

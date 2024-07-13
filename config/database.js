@@ -1,8 +1,8 @@
 const { Sequelize } = require("sequelize");
 
-const pwDB = "Rekures_Sedap21";
+const pwDB = "Chika12345";
 
-const db = new Sequelize("auth_db", "root", pwDB, {
+const db = new Sequelize("auth_db", "chika", pwDB, {
   host: "localhost",
   dialect: "mysql",
 });
